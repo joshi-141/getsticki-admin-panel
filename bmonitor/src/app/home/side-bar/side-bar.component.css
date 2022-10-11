@@ -1,0 +1,26 @@
+.show-me {
+  display: inline;
+  animation: fadeIn 2s;
+}
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.hide-me {
+  display: inline;
+  animation: fadeOut 2s;
+}
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.open {
+
+  background: #eeeeee;
+  opacity: 0.9;
+}

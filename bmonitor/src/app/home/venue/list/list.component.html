@@ -1,0 +1,16 @@
+<div *ngIf="inProgress">
+  <app-spinner [timeout]="10000"></app-spinner>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Venues</h4>
+      </div>
+      <div class="card-body">
+        <app-panel-table [data]="data" [header]="header" (select)="select($event)"> </app-panel-table>
+      </div>
+    </div>
+  </div>
+
+</div>

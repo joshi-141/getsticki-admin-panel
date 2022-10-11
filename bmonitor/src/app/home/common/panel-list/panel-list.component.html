@@ -1,0 +1,14 @@
+
+<div class="aside-nav collapse">
+  <span class="label">List</span>
+  <ul class="nav">
+    <ng-container *ngFor="let item of list">
+      <li>
+        <a href="#">
+          <i class="{{item.icon}}"></i> {{item.path}}
+          <span class="badge badge-danger float-right">{{item.total}}</span>
+        </a>
+      </li>
+    </ng-container>
+  </ul>
+</div>

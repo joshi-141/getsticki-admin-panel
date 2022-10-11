@@ -1,0 +1,41 @@
+<div class="account-pages">
+  <div class="d-flex justify-content-center align-items-center w-full" style="height:100vh">
+    <div class="col-md-8 col-lg-6 col-xl-4">
+      <div class="card bg-pattern"
+      style="background:#f7f7f7;
+      box-shadow: 0 0px 13px #00000042;
+      border-radius: 10px;">
+        <div class="card-body w-100 p-0 mb-0">
+          <div class="auth-logo">
+            <div class="text-center pt-5">
+              <a href="index.html" class="logo logo-light">
+                <span class="logo-lg">
+                  <img src="http://boopdating.com:4200/assets/images/BOOPLogo.png" alt="" height="80" >
+                </span>
+              </a>
+            </div>
+            <form #login="ngForm" (ngSubmit)="loginUser(login)" class="px-5 py-5">
+              <div class="mb-3 text-left">
+                <label for="emailaddress" class="form-label font-weight-bold"
+                  style="margin-bottom:3px;">Username</label>
+                <input class="form-control shadow-sm" name="username" type="email" required=""
+                  placeholder="Enter username" autocomplete="off" ngModel>
+              </div>
+
+              <div class="mb-3 text-left">
+                <label for="password" class="form-label font-weight-bold" style="margin-bottom: 3px;">Password</label>
+                <input class="form-control shadow-sm" name="password" type="password" required=""
+                  placeholder="Enter password" ngModel>
+              </div>
+
+              <button class="btn btn-primary mt-2 rounded w-100 font-weight-bold" type="submit"
+                style=" padding: 8px 25px;letter-spacing:1px;"> Login
+              </button>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

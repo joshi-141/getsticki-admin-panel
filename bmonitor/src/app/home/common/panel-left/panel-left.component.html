@@ -1,0 +1,59 @@
+<div class="page-inner page-inner-fill">
+  <div class="page-with-aside mail-wrapper bg-white">
+    <div class="page-aside bg-grey1">
+      <div class="aside-header">
+        <div class="title">{{title}}</div>
+        <div class="description">Dates & Venues</div>
+        <a class="btn btn-primary toggle-email-nav" data-toggle="collapse" href="#email-app-nav" role="button" aria-expanded="false" aria-controls="email-nav">
+          <span class="btn-label">
+            <i class="icon-menu"></i>
+          </span>
+          Menu
+        </a>
+      </div>
+      <div class="aside-nav collapse" id="email-app-nav">
+        <div class="aside-compose"><a href="#" class="btn btn-primary btn-block fw-mediumbold">VENUES</a></div>
+        <ul class="nav collapse show">
+          <ng-container *ngFor="let item of menu">
+            <li>
+              <a href="#">
+                <i class="flaticon-inbox"></i> {{item.name}}
+                <span class="badge badge-danger float-right">{{item.number || 6}}</span>
+              </a>
+            </li>
+          </ng-container>
+        </ul>
+
+        <div class="aside-compose"><a href="#" class="btn btn-primary btn-block fw-mediumbold">DATES</a></div>
+        <ul class="nav nav-pills nav-stacked">
+          <li>
+            <a href="#">
+              <i class="flaticon-inbox"></i> Current Week
+              <span class="badge badge-primary float-right">2</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="flaticon-inbox"></i> Next Week
+              <span class="badge badge-primary float-right">8</span>
+            </a>
+          </li>
+          <li class="active">
+            <a href="#">
+              <i class="fa fa-envelope"></i> Next 2 Week
+              <span class="badge badge-primary float-right">12</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="flaticon-exclamation"></i> Next Month
+              <span class="badge badge-secondary float-right">4</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+

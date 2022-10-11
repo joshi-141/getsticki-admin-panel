@@ -1,0 +1,65 @@
+<div class="sidebar sidebar-style-2">
+  <div class="sidebar-wrapper scrollbar scrollbar-inner">
+    <div class="sidebar-content">
+      <div class="user">
+        <div class="avatar-sm float-left mr-2">
+          <img src="../assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+        </div>
+        <div class="info">
+          <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+								<span>
+									Boop Admin
+									<span class="user-level">Administrator</span>
+									<span class="caret"></span>
+								</span>
+          </a>
+          <div class="clearfix"></div>
+
+          <div class="collapse in" id="collapseExample">
+            <ul class="nav">
+              <li>
+                <a href="#profile">
+                  <span class="link-collapse">My Profile</span>
+                </a>
+              </li>
+              <li>
+                <a href="#edit">
+                  <span class="link-collapse">Edit Profile</span>
+                </a>
+              </li>
+              <li>
+                <a href="#settings">
+                  <span class="link-collapse">Settings</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <ul class="nav nav-primary">
+        <ng-container *ngFor="let menuItem of menu">
+          <li class="nav-item" *ngIf="menuItem.name!='Authentication'">
+            <a (click)="menuItem.name!='Dashboard'?openClose(menuItem.name):openLink(menuItem.url)" class aria-expanded="true" [ngClass]="{'open': menuItem.expanded }">
+              <i class="{{menuItem.icon}}"></i>
+              <p>{{menuItem.name}}</p>
+              <span *ngIf="menuItem.name!='Dashboard'" class="caret"></span>
+            </a>
+            <div  class="collapse"  [ngClass]="{'show-me': menuItem.expanded === true } " id="user">
+              <ul class="nav nav-collapse" >
+                <ng-container *ngFor="let submenuItem of menuItem.children">
+                  <li>
+                    <a (click)="selectComponent(submenuItem.url)">
+                      <span class="sub-item" style="cursor:pointer">
+                        {{submenuItem.name}}
+                      </span>
+                    </a>
+                  </li>
+                </ng-container>
+              </ul>
+            </div>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
+</div>

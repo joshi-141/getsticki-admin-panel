@@ -1,0 +1,8 @@
+<div class="row">
+  <ng-container *ngFor="let p of profiles">
+    <div class="col-md-2" (click)="showProfileDetail(p)">
+      <app-card-profile [profile]="p"></app-card-profile>
+    </div>
+  </ng-container>
+</div>
+

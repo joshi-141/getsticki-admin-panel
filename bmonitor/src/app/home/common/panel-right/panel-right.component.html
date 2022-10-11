@@ -1,0 +1,91 @@
+<div class="page-inner">
+  <div class="row row-projects" *ngIf="type === 'CHAT_PANEL'">
+    <ng-container *ngFor="let date of list">
+      <div class="col-sm-6 col-lg-3">
+        <div class="card text-center">
+          <div class="card-body pt-2">
+            <i class="fa fa-comments"></i>
+            <div> Jean Claude </div>
+            <div> Marlene Joe </div>
+            <div style="padding-top: 12px" class="avatar-group">
+              <div class="avatar avatar-online">
+                <span class="avatar-title rounded-circle border border-white bg-success">M</span>
+              </div>
+              <div class="avatar avatar-online">
+                <span class="avatar-title rounded-circle border border-white bg-success">J</span>
+              </div>
+            </div>
+            <p class="pt-1 text-muted small mb-2">Last updated: 10 mn ago</p>
+            <div class="d-flex pt-4">
+              <div class="flex-1 ml-3 pt-1">
+                <span class="text-muted">See you soon...</span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="row user-stats text-center">
+                <div class="col">
+                  <div class="number">100</div>
+                  <div class="title"><i class="fa fa-history"></i></div>
+                </div>
+                <div class="col">
+                  <div class="number">10</div>
+                  <div class="title" style="color:orange"><i class="fa fa-comments"></i></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="row row-projects" *ngIf="type === 'DATE_PANEL'">
+    <ng-container *ngFor="let date of list">
+      <div class="col-sm-6 col-lg-3">
+        <div class="card text-center">
+          <div class="card-body pt-2">
+            <i class="fa fa-heart"></i>
+            <div> Jean Claude </div>
+            <div> Marlene Joe </div>
+            <div style="padding-top: 12px" class="avatar-group">
+              <div class="avatar avatar-online">
+                <span class="avatar-title rounded-circle border border-white bg-success">M</span>
+              </div>
+              <div class="avatar avatar-online">
+                <span class="avatar-title rounded-circle border border-white bg-success">J</span>
+              </div>
+            </div>
+            <p class="pt-1 text-muted small mb-2">Scheduled  @ time ....</p>
+            <div class="d-flex pt-4">
+              <div class="flex-1 ml-3 pt-1">
+                <span class="text-muted">Beer Deluxe T2</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="p-2">
+                <img class="card-img-top rounded" src="../assets/img/venue_photo_2.jpeg" style="height:210px" alt="Product 1">
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <div class="row user-stats text-center">
+
+                <div class="col" >
+                  <div class="title"><i class="fa fa-dollar-sign"></i><i class="fa fa-dollar-sign"></i><i class="fa fa-dollar-sign"></i></div>
+                </div>
+                <div class="col">
+                  <div class="title">
+                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                    <i class="fa fa-star-half"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div><a [routerLink]="[]"> Direction <i class="fa fa-directions"></i> </a> </div>
+
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

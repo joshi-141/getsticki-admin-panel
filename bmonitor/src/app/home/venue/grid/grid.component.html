@@ -1,0 +1,79 @@
+<div *ngIf="inProgress">
+  <app-spinner [timeout]="10000"></app-spinner>
+</div>
+<div class="row">
+  <div class="col-sm-6 col-md-12">
+    <div class="card card-stats card-round">
+      <div class="card-body ">
+        <div class="row align-items-center">
+          <ng-container *ngFor="let cat of categories">
+            <div class="col text-center">
+              <div class="numbers">
+                <p class="card-category">{{cat.name}}</p>
+                <div class="avatar avatar-online">
+                  <span class="avatar-title rounded-circle border border-white" style="background:#7b0cd5">{{cat.total}}</span>
+                </div>
+                <div style="font-size:8px">{{cat.fullName}}</div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="">
+    <div class="page-navs bg-white">
+      <div class="nav-scroller">
+        <div class="nav nav-tabs nav-line nav-color-secondary d-flex align-items-center">
+          <a (click)="show('all')"class="nav-link active show" data-toggle="tab" href="#tab1">All Venues
+            <span class="count ml-1">({{total}})</span>
+          </a>
+          <a (click)="show('partner')" class="nav-link mr-2" data-toggle="tab">Partner <span class="count ml-1">({{partner}})</span></a>
+          <a (click)="show('other')" class="nav-link mr-5" data-toggle="tab">Other <span class="count ml-1">({{other}})</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="page-inner">
+      <div class="row row-projects">
+        <ng-container *ngFor="let venue of venues">
+          <div class="col-sm-6 col-lg-2" [ngClass]="{'venue-invisible': !venue.visible}">
+            <div class="card">
+              <div class="p-2">
+                <img class="card-img-top rounded" src="{{venue.photo}}" style="height:160px" alt="Product 1">
+              </div>
+              <div class="card-body pt-2">
+                <div class="avatar avatar-online">
+                  <span class="avatar-title rounded-circle border border-white">{{firstLetter(venue.name)}}</span>
+                </div>
+                <h4 class="mb-1 fw-bold"><a href="{{venue.website}}" target="_blank" >{{venue.name}}</a></h4>
+                <div class="text-right">
+                  <span class="badge badge-pill badge-warning">{{venue.category}}</span>
+                </div>
+                <div><i class="fa fa-phone"></i>&nbsp;&nbsp;{{venue.phone}}</div>
+
+                <div><i class="fa fa-home"></i>&nbsp;&nbsp;{{venue.address}}</div>
+
+                <div class="card-footer">
+                  <div class="row user-stats text-center">
+                    <div class="col" >
+                      <div class="number" style="color:blue">3.5</div>
+                      <div class="title" style="color:red !important;"> <i class="fa fa-star"></i></div>
+                    </div>
+                    <div class="col">
+                      <div class="number" >25</div>
+                      <div class="title" style="color:red"><i class="fa fa-heart"></i></div>
+                    </div>
+                    <div class="col">
+                      <div class="number" >{{venue.discount}}</div>
+                      <div class="title" style="color:red"><i class="fa fa-percentage"></i></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>

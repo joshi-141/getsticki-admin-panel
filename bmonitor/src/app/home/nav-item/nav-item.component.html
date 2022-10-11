@@ -1,0 +1,22 @@
+
+ <li class="nav-item">
+  <a (click)="openClose();" class aria-expanded="true">
+    <i class="fas fa-home"></i>
+    <p>{{name}}</p>
+    <span class="caret"></span>
+  </a>
+  <div  class="collapse"  [ngClass]="{'show-me': expanded === true } " id="dashboard">
+    <ul class="nav nav-collapse" >
+      <ng-container *ngFor="let item of list">
+        <li>
+          <a (click)="selectComponent(item.url)">
+            <span class="sub-item">
+              {{item.path}}
+            </span>
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</li>
+
