@@ -1,1 +1,59 @@
-<p>all-user</p>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
+    integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
+    crossorigin="anonymous"></script>
+<div id="view" class="e-btn-group">
+    <div class="heading">
+        <h2 class="color-black" style="color:#000;">All-Users</h2>
+    </div>
+</div>
+<div style="margin-right:32px;padding-top: 55px;">
+    <table class="table" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" [fromRoot]="true"
+        (scrolled)="onScroll()">
+        <thead class="table-info">
+            <tr>
+                <th>ID</th>
+                <th>USER NAME</th>
+                <th>GENDER</th>
+                <th>PREFERENCE</th>
+                <th>DOB</th>
+                <th>LOCATION</th>
+                <th>MOBILE</th>
+                <th>NO. OF MATCHES</th>
+                <th>JOINED DATE</th>
+                <th>PROFILE STATUS</th>
+                <th>ACCOUNT STATUS</th>
+                <th>ACTION</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users; let i = index" style="border:1px solid #f7f7f7;">
+                <td>{{i + 1}}</td>
+                <td class="user_box">{{user.profiles.first_name}}</td>
+                <td>{{user.profiles.gender}}</td>
+                <td>{{user.profiles.dating_preferences[1]?.gender_preference}}</td>
+                <td class="dob_box">{{user.profiles.date_of_birth | date: 'dd-MM-yyyy' }}</td>
+                <td>{{user.profiles.country}}</td>
+                <td class="num_box">{{user.phone_number}}</td>
+                <td>{{user._count.match_user1_ref + user._count.match_user2_ref }}</td>
+                <td class="join_date_box">{{user.created_at | date: 'dd-MM-yyyy'}}</td>
+                <td><button class="ctm_btn" [ngClass]="{
+                               'orange': user.profiles.review_status == 'UNDER_REVIEW',
+                               'red': user.profiles.review_status == 'INCOMPLETE',
+                               'green': user.profiles.review_status == 'APPROVED',
+                               'blue': user.profiles.review_status == 'REJECTED'}">
+                        {{user.profiles.review_status}}</button></td>
+                <td><button class="ctm_btn" [ngClass]="{
+                                'green': user.account_status == 'ACTIVE',
+                                'orange': user.account_status == 'INCOMPLETE',
+                                'canceled': user.account_status == 'CANCELED',
+                                'blue': user.account_status == 'BANNED',
+                                'red': user.account_status == 'DELETED'}">
+                        {{user.account_status}}</button></td>
+                <td><i class="far fa-edit"></i></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

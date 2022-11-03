@@ -20,6 +20,7 @@ import { VenuesComponent } from './venues/venues.component';
 import { BlockedReportedComponent } from './blocked-reported/blocked-reported.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { InterestgroupsComponent } from './interestgroups/interestgroups.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 
@@ -50,6 +51,7 @@ import { InterestgroupsComponent } from './interestgroups/interestgroups.compone
     ConnectionRoutingModule,
     MserviceModule,
     VenueModule,
+    InfiniteScrollModule
 
   ]
 })
