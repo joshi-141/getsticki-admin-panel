@@ -38,7 +38,8 @@ import { Notification } from './service/notification/notification.service';
           link:  httpLink.create({
             //uri: 'https:/boopapi.com/graphql',
             //uri: 'http://koaela.com/graphql',
-            uri: 'https:/boopapi.com/qa/graphql',
+            //uri: 'https:/boopapi.com/qa/graphql',
+              uri: 'http://gugubara.com/graphql'
           })
         };
       },

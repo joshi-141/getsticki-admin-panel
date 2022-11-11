@@ -1,15 +1,60 @@
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
-    integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
-    crossorigin="anonymous"></script>
 <div id="view" class="e-btn-group">
     <div class="heading">
         <h2 class="color-black" style="color:#000;">All-Users</h2>
+        <div class="right_side">
+            <form>
+                <input type="text" class="" placeholder="Search Here" autocomplete="off">
+                <a ><svg xmlns="http://www.w3.org/2000/svg"
+                        width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg> </a>
+            </form>
+            <div class="select_main_div">
+            <!-- Gender -->
+            <select (change)="filter('profile.gender',$event)" class="form-control togl_drop" id="exampleFormControlSelect1">
+                <option>Gender</option>
+                <option value='MALE'>Male</option>
+                <option value='FEMALE'>Female</option>
+            </select>
+            <!-- Account Status -->
+            <select (change)="filter('account_status',$event)" class="form-control togl_drop" id="exampleFormControlSelect1">
+                <option>Acount Status</option>
+                <option value="ACTIVE">Active</option>
+                <option value="INCOMPLETE">Incomplete</option>
+                <option value="CANCELED">canceled</option>
+                <option value="BANNED">banned</option>
+                <option value="DELETED">Deleted</option>
+            </select>
+
+            <!-- Profile Status -->
+            <select class="form-control togl_drop" id="exampleFormControlSelect1">
+                <option>Profile Status</option>
+                <option>Aproved</option>
+                <option>Rejected</option>
+                <option>Under Review</option>
+            </select>
+            <!-- Location (state) -->
+            <select class="form-control togl_drop" id="exampleFormControlSelect1">
+                <option>Location (state)</option>
+            </select>
+            <!-- Relationship Status-->
+            <select class="form-control togl_drop" id="exampleFormControlSelect1">
+                <option>Relationship</option>
+            </select>
+            <!-- for_sort -->
+            <select (change)="sort($event)" class="form-control togl_drop" id="exampleFormControlSelect1">
+                <option value='{"orderBy":"created_at","orderMethod":"desc"}'>Sign up date</option>
+                <option value='{"orderBy":"account_status","orderMethod":"asc"}'>Account Status(A-Z)</option>
+                <option value='{"orderBy":"account_status","orderMethod":"desc"}'>Account Status(Z-A)</option>
+                <option value='{"orderBy":"profile.review_status","orderMethod":"asc"}'>Profile Status(A-Z)</option>
+                <option value='{"orderBy":"profile.review_status","orderMethod":"desc"}'>Profile Status(Z-A)</option>
+            </select>
+        </div>
+        </div>
     </div>
 </div>
-<div style="margin-right:32px;padding-top: 55px;">
+<div style="margin-right:32px;padding-top:104px;">
     <table class="table" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" [fromRoot]="true"
         (scrolled)="onScroll()">
         <thead class="table-info">
@@ -21,7 +66,7 @@
                 <th>DOB</th>
                 <th>LOCATION</th>
                 <th>MOBILE</th>
-                <th>NO. OF MATCHES</th>
+                <!-- <th>NO. OF MATCHES</th> -->
                 <th>JOINED DATE</th>
                 <th>PROFILE STATUS</th>
                 <th>ACCOUNT STATUS</th>
@@ -30,29 +75,48 @@
         </thead>
         <tbody>
             <tr *ngFor="let user of users; let i = index" style="border:1px solid #f7f7f7;">
-                <td>{{i + 1}}</td>
-                <td class="user_box">{{user.profiles.first_name}}</td>
-                <td>{{user.profiles.gender}}</td>
-                <td>{{user.profiles.dating_preferences[1]?.gender_preference}}</td>
-                <td class="dob_box">{{user.profiles.date_of_birth | date: 'dd-MM-yyyy' }}</td>
-                <td>{{user.profiles.country}}</td>
-                <td class="num_box">{{user.phone_number}}</td>
-                <td>{{user._count.match_user1_ref + user._count.match_user2_ref }}</td>
-                <td class="join_date_box">{{user.created_at | date: 'dd-MM-yyyy'}}</td>
-                <td><button class="ctm_btn" [ngClass]="{
-                               'orange': user.profiles.review_status == 'UNDER_REVIEW',
-                               'red': user.profiles.review_status == 'INCOMPLETE',
-                               'green': user.profiles.review_status == 'APPROVED',
-                               'blue': user.profiles.review_status == 'REJECTED'}">
-                        {{user.profiles.review_status}}</button></td>
-                <td><button class="ctm_btn" [ngClass]="{
+                <td *ngIf="user.profile">{{i + 1}}</td>
+                <td *ngIf="user.profile" class="user_box">{{user.profile.first_name}}</td>
+                <td *ngIf="user.profile">{{user.profile.gender}}</td>
+                <td *ngIf="user.profile">{{user.profile.preference[0]?.gender_preference}}</td>
+                <td *ngIf="user.profile" class="dob_box">{{user.profile.date_of_birth | date: 'dd-MM-yyyy' }}</td>
+                <td *ngIf="user.profile">{{user.profile.country}}</td>
+                <td *ngIf="user.profile" class="num_box">{{user.phone_number}}</td>
+                <!-- <td>{{user._count.match_user1_ref + user._count.match_user2_ref }}</td> -->
+                <td *ngIf="user.profile" class="join_date_box">{{user.created_at | date: 'dd-MM-yyyy'}}</td>
+                <td *ngIf="user.profile"><button class="ctm_btn" [ngClass]="{
+                               'orange': user.profile.review_status == 'UNDER_REVIEW',
+                               'red': user.profile.review_status == 'INCOMPLETE',
+                               'green': user.profile.review_status == 'APPROVED',
+                               'blue': user.profile.review_status == 'REJECTED'}">
+                        {{user.profile.review_status}}</button></td>
+                <td *ngIf="user.profile"><button class="ctm_btn" [ngClass]="{
                                 'green': user.account_status == 'ACTIVE',
                                 'orange': user.account_status == 'INCOMPLETE',
                                 'canceled': user.account_status == 'CANCELED',
                                 'blue': user.account_status == 'BANNED',
                                 'red': user.account_status == 'DELETED'}">
                         {{user.account_status}}</button></td>
-                <td><i class="far fa-edit"></i></td>
+
+                <td *ngIf="user.profile" class="rotate">
+                    <div class="three_dots_main">
+                        <div (click)="openIt(user.id)" class="three_dots">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                                <path
+                                    d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                            </svg>
+                        </div>
+                        <!-- <div class="popover_div" >
+                            <ul>
+                                <li>Message</li>
+                                <li><a (click)="openLink(id)" data-dismiss="modal">Edit/ViewProfile</a></li>
+                                <li>Suspend</li>
+                                <li>Delete</li>
+                            </ul>
+                        </div> -->
+                    </div>
+                </td>
             </tr>
         </tbody>
     </table>

@@ -11,6 +11,8 @@ import { VenueComponent } from '../venue/venue.component';
 import { BlockedReportedComponent } from './blocked-reported/blocked-reported.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { InterestgroupsComponent } from './interestgroups/interestgroups.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
+
 
 const routes: Routes = [
   {
@@ -22,14 +24,15 @@ const routes: Routes = [
       { path: 'venues', component: VenueComponent },
       { path: 'blocked-reported', component: BlockedReportedComponent },
       { path: 'feedback', component:FeedbackComponent },
-      { path: 'interestgroups', component:InterestgroupsComponent }
+      { path: 'interestgroups', component:InterestgroupsComponent },
+      { path: 'user-details', component: UserDetailsComponent }
 
     ]
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes), CommonModule],
+  imports: [RouterModule.forChild(routes), CommonModule,],
   exports: [RouterModule]
 })
 export class ConnectionRoutingModule { }

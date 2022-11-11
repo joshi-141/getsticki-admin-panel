@@ -21,11 +21,8 @@ import { BlockedReportedComponent } from './blocked-reported/blocked-reported.co
 import { FeedbackComponent } from './feedback/feedback.component';
 import { InterestgroupsComponent } from './interestgroups/interestgroups.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-
-
-
-
-
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -45,14 +42,15 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     BlockedReportedComponent,
     FeedbackComponent,
     InterestgroupsComponent,
+    UserDetailsComponent
   ],
   imports: [
     CommonModule,
     ConnectionRoutingModule,
     MserviceModule,
     VenueModule,
-    InfiniteScrollModule
-
+    InfiniteScrollModule, 
+    FormsModule
   ]
 })
 export class ConnectionModule { }

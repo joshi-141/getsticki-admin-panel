@@ -22,7 +22,7 @@
 </div>
 <div style="margin-right:32px;padding-top: 55px;">
     <table class="table" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" [fromRoot]="true"
-        (scrolled)="onScroll()" *ngIf="display === 1; else list_content">
+         *ngIf="display === 1; else list_content">
         <thead class="table-info">
             <tr>
                 <th scope="col">VENUE ID</th>
@@ -47,7 +47,7 @@
     
     <ng-template #list_content>
         <div class="container p-0" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500"
-            [fromRoot]="true" (scrolled)="onScroll()">
+            [fromRoot]="true" >
             <div class="grid_box d-flex justify-content-between flex-wrap">
                  <div class="clm p-0" *ngFor="let venue of venues" style="width:31.33% !important;">
                     <div class="card_box">
