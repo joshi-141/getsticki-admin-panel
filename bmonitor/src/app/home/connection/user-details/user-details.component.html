@@ -1,1 +1,46 @@
-<p>user-details works!</p>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>USER NAME</th>
+                <th>EMAIL</th>
+                <th>GENDER</th>
+                <th>PREFERENCE</th>
+                <th>DOB</th>
+                <th>LOCATION</th>
+                <th>MOBILE</th>
+                <th>BIO</th>
+                <th>JOINED DATE</th>
+                <th>PROFILE STATUS</th>
+                <th>ACCOUNT STATUS</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{user.id}}</td>
+                <td *ngIf="user.profile">{{user.profile.first_name}}</td>
+                <td>{{user.email}}</td>
+                <td *ngIf="user.profile">{{user.profile.gender}}</td>
+                <td *ngIf="user.profile">{{user.profile.preference[0]?.gender_preference}}</td>
+                <td *ngIf="user.profile">{{user.profile.date_of_birth | date: 'dd-MM-yyyy' }}</td>
+                <td *ngIf="user.profile">{{user.profile.country}}</td>
+                <td>{{user.phone_number}}</td>
+                <td *ngIf="user.profile">{{user.profile.bio}}</td>
+                <td>{{user.created_at | date: 'dd-MM-yyyy'}}</td>
+                <td *ngIf="user.profile"><button class="ctm_btn" [ngClass]="{
+                    'orange': user.profile.review_status == 'UNDER_REVIEW',
+                    'red': user.profile.review_status == 'INCOMPLETE',
+                    'green': user.profile.review_status == 'APPROVED',
+                    'blue': user.profile.review_status == 'REJECTED'}">
+                        {{user.profile.review_status}}</button></td>
+                <td *ngIf="user.profile"><button class="ctm_btn" [ngClass]="{
+                'green': user.account_status == 'ACTIVE',
+                'orange': user.account_status == 'INCOMPLETE',
+                'canceled': user.account_status == 'CANCELED',
+                'blue': user.account_status == 'BANNED',
+                'red': user.account_status == 'DELETED'}">
+                        {{user.account_status}}</button></td>
+        </tbody>
+    </table>
+</div>

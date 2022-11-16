@@ -2,41 +2,61 @@
     <div class="heading">
         <h2 class="color-black" style="color:#000;">All-Users</h2>
         <div class="right_side">
+            <button (click)="downloadCSV()">Download CSV</button>
             <form>
-                <input type="text" class="" placeholder="Search Here" autocomplete="off">
-                <a ><svg xmlns="http://www.w3.org/2000/svg"
+                <input type="text" class="" placeholder="Search Here" autocomplete="off" #valueInput>
+                <a (click) = "searchText(valueInput.value)"><svg xmlns="http://www.w3.org/2000/svg"
                         width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                         <path
                             d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                     </svg> </a>
             </form>
+            <!-- <select (change)="searchFilter($event)" class="form-control togl_drop" id="exampleFormControlSelect1">
+                <option value=''>SEARCH</option>
+                <option value='id'>ID</option>
+                <option value='profile.first_name'>NAME</option>
+                <option value='email'>EMAIL</option>
+                <option value='phone_number'>MOBILE_NUMBER</option>
+            </select> -->
             <div class="select_main_div">
             <!-- Gender -->
             <select (change)="filter('profile.gender',$event)" class="form-control togl_drop" id="exampleFormControlSelect1">
-                <option>Gender</option>
+                <option value=''>Gender</option>
                 <option value='MALE'>Male</option>
                 <option value='FEMALE'>Female</option>
             </select>
             <!-- Account Status -->
             <select (change)="filter('account_status',$event)" class="form-control togl_drop" id="exampleFormControlSelect1">
-                <option>Acount Status</option>
+                <option value=''>Acount Status</option>
                 <option value="ACTIVE">Active</option>
                 <option value="INCOMPLETE">Incomplete</option>
                 <option value="CANCELED">canceled</option>
                 <option value="BANNED">banned</option>
-                <option value="DELETED">Deleted</option>
             </select>
 
             <!-- Profile Status -->
-            <select class="form-control togl_drop" id="exampleFormControlSelect1">
-                <option>Profile Status</option>
-                <option>Aproved</option>
-                <option>Rejected</option>
-                <option>Under Review</option>
+            <select (change)="filter('profile.review_status',$event)" class="form-control togl_drop" id="exampleFormControlSelect1">
+                <option value=''>Profile Status</option>
+                <option value="APPROVED">Aproved</option>
+                <option value="INCOMPLETE">Incomplete</option>
+                <option value="REJECTED">Rejected</option>
+                <option value="UNDER_REVIEW">Under Review</option>
             </select>
             <!-- Location (state) -->
-            <select class="form-control togl_drop" id="exampleFormControlSelect1">
-                <option>Location (state)</option>
+            <!-- <div class="group togl_drop loc_12" (change)="filter('profile.state',$event)">
+                <input [(ngModel)]='text' #name list="browsers" placeholder="Search location">
+                <datalist id="browsers">
+                <option *ngFor="let opt of stateList" value="{{opt}}">
+                </datalist>    
+            </div> -->
+            <select (change)="filter('profile.state',$event)" class="form-control togl_drop" id="exampleFormControlSelect1">
+                <option value=''>Location</option>
+                <option value="New South Wales">New South Wales</option>
+                <option value="CiVictoriaty">CiVictoriaty</option>
+                <option value="Queensland">Queensland</option>
+                <option value="Western Australia">Western Australia</option>
+                <option value="South Australia">South Australia</option>
+                <option value="Tasmania">Tasmania</option>
             </select>
             <!-- Relationship Status-->
             <select class="form-control togl_drop" id="exampleFormControlSelect1">
@@ -107,14 +127,14 @@
                                     d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
                             </svg>
                         </div>
-                        <!-- <div class="popover_div" >
+                        <div class="popover_div" *ngIf="id == user.id && show">
                             <ul>
                                 <li>Message</li>
                                 <li><a (click)="openLink(id)" data-dismiss="modal">Edit/ViewProfile</a></li>
                                 <li>Suspend</li>
                                 <li>Delete</li>
                             </ul>
-                        </div> -->
+                        </div>
                     </div>
                 </td>
             </tr>

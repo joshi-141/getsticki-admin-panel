@@ -25,7 +25,7 @@ const routes: Routes = [
       { path: 'blocked-reported', component: BlockedReportedComponent },
       { path: 'feedback', component:FeedbackComponent },
       { path: 'interestgroups', component:InterestgroupsComponent },
-      { path: 'user-details', component: UserDetailsComponent }
+      { path: 'user-details/:id', component: UserDetailsComponent }
 
     ]
   }

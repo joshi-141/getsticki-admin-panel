@@ -1,0 +1,19 @@
+.green {
+    background-color: green;
+}
+
+.orange {
+    background-color: rgb(209, 151, 43);
+}
+
+.blue {
+    background-color: rgb(28, 57, 80);
+}
+
+.red {
+    background-color: red;
+}
+
+.canceled {
+    background-color: #338099;
+}
