@@ -71,6 +71,17 @@
 .right_side form a svg{
     color: #000;
 }
+button {
+    border: 1px solid #ccc;
+    padding: 4px 15px;
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0 0 5px #ccc;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+
 .select_main_div{
     display: flex;
     margin-top:20px;

@@ -14,6 +14,7 @@ import { PanelListComponent } from './common/panel-list/panel-list.component';
 import {PanelHeaderComponent} from './common/panel-header/panel-header.component';
 import {FormsModule} from '@angular/forms';
 import {PanelTableComponent} from './common/panel-table/panel-table.component';
+import { BrowserModule } from '@angular/platform-browser';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -34,7 +35,8 @@ import {PanelTableComponent} from './common/panel-table/panel-table.component';
     AuthenticationModule,
     UserModule,
     MserviceModule,
-    FormsModule
+    FormsModule,
+    BrowserModule
   ]
 
 })

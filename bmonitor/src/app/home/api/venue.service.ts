@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import {map} from 'rxjs/operators';
 import {Apollo, gql} from 'apollo-angular';
+import { query } from '@angular/animations';
 
 
-const GET_ALL_VENUES = gql`
-query dataQuery($skip:Int!,$take:Int!){
-  dataQuery(table:"venue.b_venue.venue",skip:$skip,take:$take
-    include : {venue_category :  { 
-    include : { category_categoryTovenue_category : true } } },
+const getAllVenues = (dietary : any, order : any, category : any, searching : any) => gql`
+query venueQuery($skip:Int!,$take:Int!){
+  venueQuery(skip:$skip,take:$take
+    ${dietary}
+    ${order}
+    ${category}
+    ${searching}
     ) {
     code
     error
@@ -22,19 +25,26 @@ query dataQuery($skip:Int!,$take:Int!){
 export class VenueService {
 
   constructor(private apollo: Apollo) { }
-  async loadVenues(cb: (x: any) => any) {
+  async loadVenues(queryParams : any, cb: (x: any) => any) {
+
+    
+    const dietary =  queryParams.dietaryFilter ? queryParams.dietaryFilter :  '';
+    const category = queryParams.categoryFilter ? queryParams.categoryFilter  : '';  
+    const searching = dietary || category ? queryParams.searchingFilter ? queryParams.searchingFilter : '' : queryParams.searchingFilter ? `dietary : [] ${queryParams.searchingFilter}` : '';
+
+    const order = queryParams.sorting ? `order : ${queryParams.sorting}`:'';
     const query = this.apollo.query<any>({
-      query: GET_ALL_VENUES,
+      query: getAllVenues(dietary,order,category,searching),
       variables: {
-        skip: 10,
-        take: 10,
+        skip: queryParams.skip,
+        take: queryParams.take,
       }
     }).pipe(map((data) => data));
 
     query.subscribe((res) => { 
       const { data } = res;
-      const { dataQuery } = data;
-      cb(dataQuery);
+      const { venueQuery } = data;
+      cb(venueQuery);
     })
   }
 }

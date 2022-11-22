@@ -1,46 +1,503 @@
-<div>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>USER NAME</th>
-                <th>EMAIL</th>
-                <th>GENDER</th>
-                <th>PREFERENCE</th>
-                <th>DOB</th>
-                <th>LOCATION</th>
-                <th>MOBILE</th>
-                <th>BIO</th>
-                <th>JOINED DATE</th>
-                <th>PROFILE STATUS</th>
-                <th>ACCOUNT STATUS</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{user.id}}</td>
-                <td *ngIf="user.profile">{{user.profile.first_name}}</td>
-                <td>{{user.email}}</td>
-                <td *ngIf="user.profile">{{user.profile.gender}}</td>
-                <td *ngIf="user.profile">{{user.profile.preference[0]?.gender_preference}}</td>
-                <td *ngIf="user.profile">{{user.profile.date_of_birth | date: 'dd-MM-yyyy' }}</td>
-                <td *ngIf="user.profile">{{user.profile.country}}</td>
-                <td>{{user.phone_number}}</td>
-                <td *ngIf="user.profile">{{user.profile.bio}}</td>
-                <td>{{user.created_at | date: 'dd-MM-yyyy'}}</td>
-                <td *ngIf="user.profile"><button class="ctm_btn" [ngClass]="{
+<div class="wrapper">
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <h1>User Profile</h1>
+                            <a data-toggle="modal" data-target="#exampleModal">
+                                <i class="far fa-edit edit_btn"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">User Profile</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3">
+
+                        <!-- Profile Image -->
+                        <div class="card card-primary card-outline">
+                            <div class="card-body box-profile">
+                                <div class="text-center pro_img">
+                                    <img *ngIf="photo" class="profile-user-img img-circle" src="{{photo}}"
+                                        alt="User profile picture">
+                                </div>
+                                <p class="profile-username text-left">USER_ID:- {{user.id}}</p>
+                                <p *ngIf="user.profile" class="profile-username text-left">NAME:-
+                                    {{user.profile.first_name}}</p>
+                                <p class="profile-username text-left">EMAIL:- {{user.email}}</p>
+                                <p *ngIf="user.profile" class="profile-username text-left">GENDER:-
+                                    {{user.profile.gender}}</p>
+                                <p *ngIf="user.profile" class="profile-username text-left">PREFERENCE:-
+                                    {{user.profile.preference[0]?.gender_preference}}</p>
+                                <p *ngIf="user.profile" class="profile-username text-left">DOB:-
+                                    {{user.profile.date_of_birth | date: 'dd-MM-yyyy' }}</p>
+                                <p *ngIf="user.profile" class="profile-username text-left">ADDRESS:-
+                                    {{user.profile.country}}</p>
+                                <p class="profile-username text-left">MOBILE_NUMBER:- {{user.phone_number}}</p>
+                                <p *ngIf="user.profile" class="profile-username text-left">BIO:- {{user.profile.bio}}
+                                </p>
+                                <p class="profile-username text-left">JOINED_DATE:- {{user.created_at | date:
+                                    'dd-MM-yyyy'}}</p>
+                                <p *ngIf="user.profile" class="profile-username text-left">PROFILE_STATUS:-<button
+                                        class="ctm_btn" [ngClass]="{
                     'orange': user.profile.review_status == 'UNDER_REVIEW',
                     'red': user.profile.review_status == 'INCOMPLETE',
                     'green': user.profile.review_status == 'APPROVED',
                     'blue': user.profile.review_status == 'REJECTED'}">
-                        {{user.profile.review_status}}</button></td>
-                <td *ngIf="user.profile"><button class="ctm_btn" [ngClass]="{
-                'green': user.account_status == 'ACTIVE',
-                'orange': user.account_status == 'INCOMPLETE',
-                'canceled': user.account_status == 'CANCELED',
-                'blue': user.account_status == 'BANNED',
-                'red': user.account_status == 'DELETED'}">
-                        {{user.account_status}}</button></td>
-        </tbody>
-    </table>
+                                        {{user.profile.review_status}}</button></p>
+                                <p class="profile-username text-left">ACCOUNT_STATUS:-<button class="ctm_btn" [ngClass]="{
+                    'green': user.account_status == 'ACTIVE',
+                    'orange': user.account_status == 'INCOMPLETE',
+                    'canceled': user.account_status == 'CANCELED',
+                    'blue': user.account_status == 'BANNED',
+                    'red': user.account_status == 'DELETED'}">
+                                        {{user.account_status}}</button></p>
+                                <p *ngIf="user.profile || user.profile.relationship == null || user.profile.relationship == false; else loggedOut" class="profile-username text-left">RELATIONSHIP STATUS:- Single</p>
+                                <ng-template #loggedOut >
+                                    RELATIONSHIP STATUS:- In a relationship
+                                  </ng-template>
+                                <!-- <ul class="list-group list-group-unbordered mb-3">
+                  <li class="list-group-item">
+                    <b>Followers</b> <a class="float-right">1,322</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Following</b> <a class="float-right">543</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Friends</b> <a class="float-right">13,287</a>
+                  </li>
+                </ul> -->
+
+                                <!-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> -->
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+
+                        <!-- About Me Box -->
+                        <!-- <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">About Me</h3>
+              </div> -->
+                        <!-- /.card-header -->
+                        <!-- <div class="card-body">
+                <strong><i class="fas fa-book mr-1"></i> Education</strong>
+
+                <p class="text-muted">
+                  B.S. in Computer Science from the University of Tennessee at Knoxville
+                </p>
+
+                <hr>
+
+                <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+
+                <p class="text-muted">Malibu, California</p>
+
+                <hr>
+
+                <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
+
+                <p class="text-muted">
+                  <span class="tag tag-danger">UI Design</span>
+                  <span class="tag tag-success">Coding</span>
+                  <span class="tag tag-info">Javascript</span>
+                  <span class="tag tag-warning">PHP</span>
+                  <span class="tag tag-primary">Node.js</span>
+                </p>
+
+                <hr>
+
+                <strong><i class="far fa-file-alt mr-1"></i> Notes</strong> -->
+
+                        <!-- <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+              </div> -->
+                        <!-- /.card-body -->
+                        <!-- </div> -->
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-header p-2">
+                                <ul class="nav nav-pills">
+                                     <li class="nav-item"><a class="nav-link active" href="#matches"
+                                            data-toggle="tab">Match</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#userstatistics"
+                                            data-toggle="tab">User Statistics</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#Chat" data-toggle="tab">Chat</a>
+                                    </li><!--  -->
+                                </ul>
+                            </div><!-- /.card-header -->
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div class="tab-pane" id="userstatistics">
+                                        <ul class="User_statics_sec">
+
+                                            <!-- li 01 -->
+                                            <li>
+                                                <div class="card" style="width: 180px;">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Last active</h4>
+                                                        <p>5</p>
+                                                        <h4 class="card-title mb-2">Platform Average</h4>
+                                                        <p class="card-text">0.098937</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <!-- li 02 -->
+                                            <li>
+                                                <div class="card" style="width: 180px;">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Total profiles browsed</h4>
+                                                        <p>1</p>
+                                                        <h4 class="card-title mb-2">Platform Average</h4>
+                                                        <p class="card-text">0.098937</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <!-- li 03 -->
+                                            <li>
+                                                <div class="card" style="width: 180px;">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Total profiles seen by</h4>
+                                                        <p>6</p>
+                                                        <h4 class="card-title mb-2">Platform Average</h4>
+                                                        <p class="card-text">0.098937</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <!-- li 04 -->
+                                            <li>
+                                                <div class="card" style="width: 180px;">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Total profiles rejected</h4>
+                                                        <p>8</p>
+                                                        <h4 class="card-title mb-2">Platform Average</h4>
+                                                        <p class="card-text">0.098937</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <!-- li 05 -->
+                                            <li>
+                                                <div class="card" style="width: 180px;">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Total profiles who have rejected that
+                                                            user</h4>
+                                                        <p>5</p>
+                                                        <h4 class="card-title mb-2">Platform Average</h4>
+                                                        <p class="card-text">0.098937</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <!-- li 06 -->
+                                            <li>
+                                                <div class="card" style="width: 180px;">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Total profiles liked</h4>
+                                                        <p>3</p>
+                                                        <h4 class="card-title mb-2">Platform Average</h4>
+                                                        <p class="card-text">0.098937</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <!-- li 07 -->
+                                            <li>
+                                                <div class="card" style="width: 180px;">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Total profiles liked by</h4>
+                                                        <p>9</p>
+                                                        <h4 class="card-title mb-2">Platform Average</h4>
+                                                        <p class="card-text">0.098937</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <!-- li 08 -->
+                                            <li>
+                                                <div class="card" style="width: 180px;">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Total matches</h4>
+                                                        <p>1</p>
+                                                        <h4 class="card-title mb-2">Platform Average</h4>
+                                                        <p class="card-text">0.098937</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <!-- li 09 -->
+                                            <li>
+                                                <div class="card" style="width: 180px;">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Total date invites sent</h4>
+                                                        <p>7</p>
+                                                        <h4 class="card-title mb-2">Platform Average</h4>
+                                                        <p class="card-text">0.098937</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <!-- li 10 -->
+                                            <li>
+                                                <div class="card" style="width: 180px;">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Total date invites received</h4>
+                                                        <p>6</p>
+                                                        <h4 class="card-title mb-2">Platform Average</h4>
+                                                        <p class="card-text">0.098937</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <!-- li 11 -->
+                                            <li>
+                                                <div class="card" style="width: 180px;">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Total dates attended</h4>
+                                                        <p>2</p>
+                                                        <h4 class="card-title mb-2">Platform Average</h4>
+                                                        <p class="card-text">0.098937</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <!-- li 12 -->
+                                            <li>
+                                                <div class="card" style="width: 180px;">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Total number of discount codes used</h4>
+                                                        <p>4</p>
+                                                        <h4 class="card-title mb-2">Platform Average</h4>
+                                                        <p class="card-text">0.098937</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                        </ul>
+
+
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <div class="active tab-pane" id="matches">
+                                        <!-- Post -->
+                                        <div>
+                                            <table class="table">
+                                                <thead class="table-info">
+                                                    <tr >
+                                                        <th>USER NAME</th>
+                                                        <th>DATE</th>
+                                                        <th>MATCH STATUS</th>
+                                                        <th>CONVERSATION STARTED</th>
+                                                        <th>DATE EXISTS</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngIf="matchedUser.profile" style="border:1px solid #f7f7f7;">
+                                                        <td>{{ matchedUser.profile.first_name }}</td>
+                                                        <td > {{ matchedUser.profile.created_at | date: 'dd-MM-yyyy' }}</td>
+                                                        <td><button class="ctm_btn" [ngClass]="{
+                                                            'green': matchedUser.account_status == 'ACTIVE',
+                                                            'orange': matchedUser.account_status == 'INCOMPLETE',
+                                                            'canceled': matchedUser.account_status == 'CANCELED',
+                                                            'blue': matchedUser.account_status == 'BANNED',
+                                                            'red': matchedUser.account_status == 'DELETED'}" >{{ matchedUser.account_status }}</button></td>
+                                                        <td>Yes</td>
+                                                        <td>DATE EXISTS</td>
+                                                    </tr>
+                                                    <tr *ngIf="!matchedUser.profile">
+                                                        <td>No matched</td>  
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        <!-- </div> -->
+                                        </div>
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <div class="tab-pane" id="Chat">
+                                        <table class="table">
+                                            <thead class="table-info">
+                                                <tr>
+                                                    <th>CHAT_ID</th>
+                                                    <th>MATCHED_USER</th>
+                                                    <th>CHAT_FILE</th>
+                                                    <th>STATUS</th>
+                                                    <th>CHAT_STARTED_DATE_AND_TIME</th>
+                                                    <th>LAST_MESSAGED_DATE_AND_TIME</th>
+                                                    <th>LAST_MESSAGED_BY</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>xyz</td>
+                                                    <td>filedata</td>
+                                                    <td>active</td>
+                                                    <td>dd/mm/yyyy</td>
+                                                    <td>dd/mm/yyyy</td>
+                                                    <td>user</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                </div>
+                                <!-- /.tab-content -->
+                            </div><!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+        <div class="float-right d-none d-sm-block">
+            <b>Version</b> 3.1.0
+        </div>
+        <!-- <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved. -->
+    </footer>
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit user detail</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3>User Id</h3>
+                <p>{{user.id}}</p>
+                <form #editUser = "ngForm" (ngSubmit) = "handleSubmit(editUser.value)"  class="needs-validation" >
+                    <div class="box_01">
+                        <div class="form-row row">
+                            <div class="col-md-4 mb-3">
+                                <label for="validationCustom01">Name</label>
+                                <input type="text" class="form-control" id="validationCustom01" placeholder="First name"
+                                    *ngIf="user.profile" value={{user.profile.first_name}} readonly>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="validationCustom02">Date of birth</label>
+                                <input type="text" class="form-control" id="validationCustom02"
+                                    placeholder="ate of birth" *ngIf="user.profile"
+                                    value="{{user.profile.date_of_birth | date: 'dd-MM-yyyy' }}" readonly>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="validationCustom02">Gender</label>
+                                <input class="form-control" id="exampleFormControlSelect1" *ngIf="user.profile"
+                                    value="{{user.profile.gender}}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box_01">
+                        <div class="form-row row">
+                            <div class="col-md-4 mb-3">
+                                <label for="validationCustom03">Email</label>
+                                <input type="text" class="form-control" id="validationCustom03" placeholder="Email"
+                                    value="{{user.email}}" readonly>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="validationCustom04">Phone number</label>
+                                <input type="text" class="form-control" id="validationCustom04" placeholder="number"
+                                    value="{{user.phone_number}}" readonly>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="validationCustom02"> Account Status</label>
+                                <input class="form-control" id="exampleFormControlSelect1" *ngIf="user.account_status"
+                                    value="{{user.account_status}}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box_01">
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label for="validationCustom04">Realtionship Status</label>
+                                <input type="text" class="form-control" name="relationship" autocomplete="off"
+                                    placeholder="Realtionship Status" *ngIf="user.profile"
+                                    [(ngModel)]="user.profile.relationship">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="validationCustom02">Profile Status</label>
+                                <select *ngIf="user.profile"  class="form-control"
+                                    name="profile" [(ngModel)]="user.profile.review_status">
+                                    <option *ngFor="let profile of profile_status" [ngValue]="profile.value">{{profile.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box_01">
+                        <div class="col-md-12 mb-3 p-0">
+                            <label for="validationCustom03">Bio</label>
+                            <textarea *ngIf="user.profile" type="text" class="form-control" id="validationCustom03"
+                                placeholder="bio">
+                {{user.profile.bio}} </textarea>
+                        </div>
+                    </div>
+                    <div class="box_01">
+                        <label for="validationCustom03">Photo</label>
+                        <p> (tick = approved, cross = rejected)</p>
+                        <div class="d-flex col-md-12 mb-3" width="100%">
+                            <div *ngFor="let image of allphoto" (click)="myClickFunction(image)"
+                                class="img_in_btn mr-3 p-0">
+                                <img src="{{image.url}}" alt="" style="height: 100px; width: 100px;">
+                                <span *ngFor="let id of imageIds">
+                                    <span *ngIf="image.id != id" class="check_btn"><svg
+                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                            class="bi bi-check-lg" viewBox="0 0 16 16">
+                                            <path
+                                                d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                        </svg></span>
+                                    <span *ngIf="image.id == id" class="close_btn"> <svg
+                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                            <path
+                                                d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z" />
+                                        </svg></span>
+                                </span>
+                                <!-- <span #condition1 *ngIf="imageIds.length == 0" class="check_btn"><svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box_01">
+                        <label for="validationCustom03">Bio Prompts</label>
+                    </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

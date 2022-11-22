@@ -1,7 +1,17 @@
+
 <div id="view" class="e-btn-group">
     <div class="heading">
         <h2 class="color-black" style="color:#000;">Venues</h2>
-        <div class="">
+        <div class="right_side d-flex align-items-center">
+            <form class="mr-3">
+                <input type="text" class="" placeholder="Search Here" autocomplete="off" #valueInput>
+                <a (click) = "searchText(valueInput.value)" ><svg xmlns="http://www.w3.org/2000/svg"
+                        width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg></a>
+            </form>
+            
             <span id="left" name="align" value="1" (click)="changeDisplay(1)" class="e-btn pr-3" for="left"><svg
                     xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-list"
                     viewBox="0 0 16 16" style="color:#000;">
@@ -16,39 +26,136 @@
                         d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z" />
                 </svg>
             </span>
+         
+            <div class="select_main_div">
+                 <!-- Venue group -->
+                 <select (change)="categoryFilter('category',$event)" class="form-control togl_drop" id="exampleFormControlSelect1">
+                    <option value="">Category</option>
+                    <option value="bar">Bar</option>
+                    <option value="cafe">Cafe</option>
+                    <option value="casual">Casual</option>
+                    <option value="restaurant">Restaurant</option>
+                    <option value="dessert">Dessert</option>
+                    <option value="pub">Pub/Hotel</option>
+                    <option value="other">Other</option>
+                    <option value="fast food">Fast food</option>
+                    <option value="rooftop">Rooftop</option>
+                    <option value="beach club">Beach club</option>
+                    <option value="cinema">Cinema</option>
+                    <option value="animals">Animals</option>
+                    <option value="movies">Movies</option>
+                    <option value="golf">Golf</option>
+                    <option value="water activity">Water activity</option>
+                    <option value="physical activity">Physical activity</option>
+                    <option value="rock climbing">Rock climbing</option>
+                    <option value="bowling">Bowling</option>
+                    <option value="escape room">Escape room</option>
+                    <option value="theme park">Theme park</option>
+                    <option value="art">Art</option>
+                    <option value="games">Games</option>
+                    <option value="museum">Museum</option>
+                    <option value="food activity">Food activity</option>
+                    <option value="tour">Tour</option>
+                    <option value="educational">Educational</option>
+                    <option value="cluture">Art/Cluture</option>
+                    <option value="equipment">Equipment</option>
+                    <option value="fees_and_taxes">Fees And Taxes</option>
+                    <option value="food_and_drink">Food And Drink</option>
+                    <option value="transport_amenities">Transport Amenities</option>
+                </select>
+                <!-- Venue group -->
+                <select (change)="dietaryfilter('dietary',$event)" class="form-control togl_drop" id="exampleFormControlSelect1">
+                    <option value="">Dietary</option>
+                    <option value="gluten free">Gluten Free</option>
+                    <option value="vegan">Vegan</option>
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="dairy free">Dairy free</option>
+                    <option value="venuedietaries.glutenfree">Venue Dietaries Glutenfree</option>
+                    <option value="venuedietaries.vegetarian">Venue Dietaries Vegetarian</option>
+                    <option value="veg only">Veg only</option>
+                    <option value="[venuedietaries.glutenfree]">[Venue Dietaries Glutenfree]</option>
+                </select>
+                <!-- State -->
+                <select  class="form-control togl_drop" id="exampleFormControlSelect1">
+                    <option>State</option>
+                    <option>Testing</option>
+                    <option>Testing</option>
+                </select>
+    
+                <!-- Agreement -->
+                <select  class="form-control togl_drop" id="exampleFormControlSelect1">
+                    <option>Agreement</option>
+                    <option>Testing</option>
+                    <option>Testing</option>
+                </select>
+                <!-- Status -->
+                <select class="form-control togl_drop" id="exampleFormControlSelect1">
+                    <option>Status</option>
+                    <option>Testing</option>
+                    <option>Testing</option>
+                </select>
+
+                <!-- for_sort -->
+                <select (change)="sort($event)" class="form-control togl_drop" id="exampleFormControlSelect1">
+                    <option>Sorting</option>
+                    <option value="suburb.asc">Suburb(A-Z)</option>
+                    <option value="suburb.desc">Suburb(Z-A)</option>
+                    <option value="state.asc">State(A-Z)</option>
+                    <option value="state.desc">State(Z-A)</option>
+                    <option>Meetings Asc</option>
+                    <option>Meetings Desc</option>
+                    <option>Code used Asc</option>
+                    <option>Code used Desc</option>
+                    <option>Earnings Asc</option>
+                    <option>Earnings Desc</option>
+                </select>
+            </div>
+
         </div>
     </div>
 
 </div>
-<div style="margin-right:32px;padding-top: 55px;">
+<div style="margin-right:32px;padding-top: 92px;">
     <table class="table" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" [fromRoot]="true"
-         *ngIf="display === 1; else list_content">
+        (scrolled)="onScroll()"   *ngIf="display == 1">
         <thead class="table-info">
             <tr>
                 <th scope="col">VENUE ID</th>
                 <th scope="col">VENUE NAME</th>
-                <th scope="col">ADDRESS</th>
-                <th scope="col">PHONE NUMBER</th>
+                <th scope="col">SUBURB</th>
+                <th scope="col">STATE</th>
                 <th scope="col">VENUE GROUPS</th>
-                <th scope="col">ACTION</th>
+                <th scope="col">AGREEMENT</th>
+                <th scope="col">NO : OF MEETINGS</th>
+                <th scope="col">NO : OF CODES USED</th>
+                <th scope="col">NO : OF BUNDLES REDEEMED</th>
+                <th scope="col">NO : OF EXCLUSIVES REDEEMED</th>
+                <th scope="col">EARNINGS</th>
+                <th scope="col">STATUS</th>
+                <th scope="col">ACTION MENU</th>  
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let venue of venues" style="border:1px solid #f7f7f7;">
                 <td>{{venue.id}}</td>
                 <td>{{venue.name}}</td>
-                <td>{{venue.address}}</td>
-                <td>{{venue.phone}}</td>
+                <td>{{venue.suburb}}</td>
+                <td>{{venue.state}}</td>
                 <td>{{venue.business_code}}</td>
+                <td>AGREEMENT</td>
+                <td>MEETINGS</td>
+                <td>CODES </td>
+                <td>BUNDLES </td>
+                <td>EXCLUSIVES </td>
+                <td>EARNINGS</td>
+                <td>{{venue.active}}</td>
                 <td><i class="far fa-edit"></i></td>
             </tr>
         </tbody>
     </table>
-    
-    <ng-template #list_content>
         <div class="container p-0" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500"
-            [fromRoot]="true" >
-            <div class="grid_box d-flex justify-content-between flex-wrap">
+         (scrolled)="onScroll()" [fromRoot]="true"  *ngIf="display == 2">
+             <div class="grid_box d-flex justify-content-between flex-wrap" >
                  <div class="clm p-0" *ngFor="let venue of venues" style="width:31.33% !important;">
                     <div class="card_box">
                         <img src="{{venue.photo}}" alt="image" />
@@ -63,6 +170,5 @@
 
                 </div>
             </div>
-        </div>
-    </ng-template>
+       </div>
 </div>

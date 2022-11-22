@@ -34,9 +34,9 @@ export class ListComponent implements OnInit {
     const data: any[] = this.storeService.readCache('VENUE');
     if (!data) {
       alert('>> SEARCH VENUE')
-      await this.venueService.loadVenues((data) => {
-        this.updateView(data);
-      });
+      // await this.venueService.loadVenues((data) => {
+      //   this.updateView(data);
+      // });
       return;
     }
     this.data = data;

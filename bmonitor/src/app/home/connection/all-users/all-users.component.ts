@@ -69,6 +69,8 @@ export class AllUsersComponent implements OnInit {
   }
 
   async filter(column: string, data: any) {
+    console.log("data",data.target.value);
+    
     const splitParts = column.split(".");
     let where = {}
     if (data.target.value != '') {
@@ -107,7 +109,7 @@ export class AllUsersComponent implements OnInit {
     //   delete this.searchValue;
     // }
     if (value != "") {
-      this.queryParams.whereCondOr = [{ email: { contains: value } }, { id: { equals: value, mode: 'insensitive' } }]
+      this.queryParams.whereCondOr = [{ phone_number: { equals: value,mode: 'insensitive'  } },{ email: { equals: value,mode: 'insensitive'  } }, { id: { equals: value, mode: 'insensitive' } },{profile:{first_name:{contains:value,mode: 'insensitive' }}}]
     } else {
       delete this.queryParams.whereCondOr;
     }
@@ -128,8 +130,21 @@ export class AllUsersComponent implements OnInit {
       showLabels: true,
       showTitle: true,
       useBom: true,
-      // headers: ['ID', 'USER NAME', 'GENDER', 'PREFERENCE', 'DOB', 'LOCATION', 'MOBILE', 'JOINED DATE', 'PROFILE STATUS', 'ACCOUNT STATUS']
+      headers: ['ID', 'USER NAME', 'GENDER', 'PREFERENCE', 'DOB', 'LOCATION', 'MOBILE', 'JOINED DATE', 'PROFILE STATUS', 'ACCOUNT STATUS']
     };
-    new Angular2Csv(this.users, this.formula, options);
+    let userList = new Array();
+    if(this.users != ''){
+    this.users.forEach(function (arrayItem: any) {
+
+      let userObj = {
+        id: arrayItem.id, name: arrayItem.profile.first_name, gender: arrayItem.profile.gender,
+        performance: arrayItem.profile.preference[0]?.gender_preference, date_of_birth: arrayItem.profile.date_of_birth,
+        location: arrayItem.profile.country, phone_number: arrayItem.phone_number, created_at: arrayItem.created_at,
+        profile_status: arrayItem.profile.review_status, account_status: arrayItem.account_status
+      }
+      userList.push(userObj)
+    });
+  }
+    new Angular2Csv(userList, this.formula, options);
   }
 }

@@ -2,7 +2,7 @@
     <div class="heading">
         <h2 class="color-black" style="color:#000;">All-Users</h2>
         <div class="right_side">
-            <button (click)="downloadCSV()">Download CSV</button>
+            <button (click)="downloadCSV()"> Download CSV</button>
             <form>
                 <input type="text" class="" placeholder="Search Here" autocomplete="off" #valueInput>
                 <a (click) = "searchText(valueInput.value)"><svg xmlns="http://www.w3.org/2000/svg"
@@ -59,8 +59,10 @@
                 <option value="Tasmania">Tasmania</option>
             </select>
             <!-- Relationship Status-->
-            <select class="form-control togl_drop" id="exampleFormControlSelect1">
-                <option>Relationship</option>
+            <select (change)="filter('profile.relationship',$event)" class="form-control togl_drop" id="exampleFormControlSelect1">
+                <option value=''>Relationship</option>
+                <option value="null">Single</option>
+                <option value="true">In a relation</option>
             </select>
             <!-- for_sort -->
             <select (change)="sort($event)" class="form-control togl_drop" id="exampleFormControlSelect1">
