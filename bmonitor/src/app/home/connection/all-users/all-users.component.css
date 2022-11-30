@@ -231,3 +231,7 @@ button.ctm_btn {
     box-shadow: 0 0 3px #ccc;
     padding: 0 5px;
 }
+
+.curser_pointer{
+    cursor: pointer;
+}

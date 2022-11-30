@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div><div class="wrapper">
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
@@ -66,10 +66,11 @@
                     'blue': user.account_status == 'BANNED',
                     'red': user.account_status == 'DELETED'}">
                                         {{user.account_status}}</button></p>
-                                <p *ngIf="user.profile || user.profile.relationship == null || user.profile.relationship == false; else loggedOut" class="profile-username text-left">RELATIONSHIP STATUS:- Single</p>
-                                <ng-template #loggedOut >
+                                <p *ngIf="user.profile && (user.profile.relationship == null || user.profile.relationship == false); else loggedOut"
+                                    class="profile-username text-left">RELATIONSHIP STATUS:- Single</p>
+                                <ng-template #loggedOut>
                                     RELATIONSHIP STATUS:- In a relationship
-                                  </ng-template>
+                                </ng-template>
                                 <!-- <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
                     <b>Followers</b> <a class="float-right">1,322</a>
@@ -134,17 +135,22 @@
                         <div class="card">
                             <div class="card-header p-2">
                                 <ul class="nav nav-pills">
-                                     <li class="nav-item"><a class="nav-link active" href="#matches"
-                                            data-toggle="tab">Match</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#userstatistics"
+                                    <li class="nav-item"><a class="nav-link active" href="#userstatistics"
                                             data-toggle="tab">User Statistics</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#matches" data-toggle="tab">Match</a>
+                                    </li>
                                     <li class="nav-item"><a class="nav-link" href="#Chat" data-toggle="tab">Chat</a>
-                                    </li><!--  -->
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link" href="#Date" data-toggle="tab">Date</a>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link" href="#block_report"
+                                            data-toggle="tab">Block/Report</a>
+                                    </li>
                                 </ul>
                             </div><!-- /.card-header -->
                             <div class="card-body">
                                 <div class="tab-content">
-                                    <div class="tab-pane" id="userstatistics">
+                                    <div class="active tab-pane" id="userstatistics">
                                         <ul class="User_statics_sec">
 
                                             <!-- li 01 -->
@@ -297,12 +303,12 @@
 
                                     </div>
                                     <!-- /.tab-pane -->
-                                    <div class="active tab-pane" id="matches">
+                                    <div class="tab-pane" id="matches">
                                         <!-- Post -->
                                         <div>
                                             <table class="table">
                                                 <thead class="table-info">
-                                                    <tr >
+                                                    <tr>
                                                         <th>USER NAME</th>
                                                         <th>DATE</th>
                                                         <th>MATCH STATUS</th>
@@ -312,53 +318,103 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr *ngIf="matchedUser.profile" style="border:1px solid #f7f7f7;">
-                                                        <td>{{ matchedUser.profile.first_name }}</td>
-                                                        <td > {{ matchedUser.profile.created_at | date: 'dd-MM-yyyy' }}</td>
+                                                        <td><a class="curser_pointer" (click)="navigate(matchedUser.id)">{{ matchedUser.profile.first_name }}</a></td>
+                                                        <td> {{ matchedUser.profile.created_at | date: 'dd-MM-yyyy' }}
+                                                        </td>
                                                         <td><button class="ctm_btn" [ngClass]="{
                                                             'green': matchedUser.account_status == 'ACTIVE',
                                                             'orange': matchedUser.account_status == 'INCOMPLETE',
                                                             'canceled': matchedUser.account_status == 'CANCELED',
                                                             'blue': matchedUser.account_status == 'BANNED',
-                                                            'red': matchedUser.account_status == 'DELETED'}" >{{ matchedUser.account_status }}</button></td>
+                                                            'red': matchedUser.account_status == 'DELETED'}">{{
+                                                                matchedUser.account_status }}</button></td>
                                                         <td>Yes</td>
                                                         <td>DATE EXISTS</td>
                                                     </tr>
                                                     <tr *ngIf="!matchedUser.profile">
-                                                        <td>No matched</td>  
+                                                        <td>No matched</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                        <!-- </div> -->
+                                            <!-- </div> -->
                                         </div>
                                     </div>
                                     <!-- /.tab-pane -->
                                     <div class="tab-pane" id="Chat">
-                                        <table class="table">
-                                            <thead class="table-info">
-                                                <tr>
-                                                    <th>CHAT_ID</th>
-                                                    <th>MATCHED_USER</th>
-                                                    <th>CHAT_FILE</th>
-                                                    <th>STATUS</th>
-                                                    <th>CHAT_STARTED_DATE_AND_TIME</th>
-                                                    <th>LAST_MESSAGED_DATE_AND_TIME</th>
-                                                    <th>LAST_MESSAGED_BY</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>xyz</td>
-                                                    <td>filedata</td>
-                                                    <td>active</td>
-                                                    <td>dd/mm/yyyy</td>
-                                                    <td>dd/mm/yyyy</td>
-                                                    <td>user</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                        <div>
+                                            <table class="table">
+                                                <thead class="table-info">
+                                                    <tr>
+                                                        <th>CHAT ID</th>
+                                                        <th>MATCHED USER</th>
+                                                        <th>CHAT FILE</th>
+                                                        <th>STATUS</th>
+                                                        <th>CHAT STARTED DATE AND TIME</th>
+                                                        <th>LAST MESSAGED DATE AND TIME</th>
+                                                        <th>LAST MESSAGED BY</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td *ngIf="chat">{{chat.id}}</td>
+                                                        <td *ngIf="matchId">{{matchId}}</td>
+                                                        <td *ngIf="chat">filedata</td>
+                                                        <td *ngIf="chat">{{chat.status}}</td>
+                                                        <td *ngIf="created_at">{{created_at | date: 'dd-MM-yyyy, hh:mm a'}}</td>
+                                                        <td *ngIf="lastmessage">{{lastmessage.created_at | date: 'dd-MM-yyyy, hh:mm a'}}
+                                                        </td>
+                                                        <td *ngIf="lastmessage"><a class="curser_pointer" (click)="navigate(lastmessage.sender)">{{lastmessage.sender}}</a></td>
+                                                    </tr>
+                                                   
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                     <!-- /.tab-pane -->
+                                    <div class="tab-pane" id="Date">
+                                        <div>
+                                            <table class="table">
+                                                <thead class="table-info">
+                                                    <tr>
+                                                        <th>DATE ID</th>
+                                                        <th>OTHER USER NAME</th>
+                                                        <th>MEETING DATE AND TIME</th>
+                                                        <th>MEETING VENUE</th>
+                                                        <th>MEETING STATUS</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- /.tab-content -->
+                                    <div class="tab-pane" id="block_report">
+                                        <div>
+                                            <table class="table">
+                                                <thead class="table-info">
+                                                    <tr>
+                                                        <th>BLOCK/REPORTED BY NAME</th>
+                                                        <th>USER ID/REPORTED BY</th>
+                                                        <th>REPORTED/BLOCKED DATE AND TIME</th>
+                                                        <th>REPORT RESION</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td *ngIf="blockReport">NAME</td>
+                                                        <td *ngIf="blockReport">{{blockReport.reported_user_id}}</td>
+                                                        <td *ngIf="blockReport">{{blockReport.created_at | date: 'dd-MM-yyyy, hh:mm a'}}
+                                                        </td>
+                                                        <td *ngIf="blockReport">{{blockReport.type}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                                 <!-- /.tab-content -->
                             </div><!-- /.card-body -->
@@ -387,6 +443,7 @@
 </div>
 <!-- ./wrapper -->
 
+<!-- Modal -->
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -444,10 +501,16 @@
                     <div class="box_01">
                         <div class="row">
                             <div class="col-md-12 mb-3">
-                                <label for="validationCustom04">Realtionship Status</label>
+                                <!-- <label for="validationCustom04">Realtionship Status</label>
                                 <input type="text" class="form-control" name="relationship" autocomplete="off"
                                     placeholder="Realtionship Status" *ngIf="user.profile"
-                                    [(ngModel)]="user.profile.relationship">
+                                    [(ngModel)]="user.profile.relationship"> -->
+
+                                    <label for="validationCustom02">Realtionship Status</label>
+                                    <select *ngIf="user.profile"  class="form-control"
+                                        name="relationship" [(ngModel)]="user.profile.relationship">
+                                        <option *ngFor="let relation of relation_status" [ngValue]="relation.value">{{relation.name}}</option>
+                                    </select>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="validationCustom02">Profile Status</label>
@@ -460,35 +523,51 @@
                     </div>
                     <div class="box_01">
                         <div class="col-md-12 mb-3 p-0">
-                            <label for="validationCustom03">Bio</label>
-                            <textarea *ngIf="user.profile" type="text" class="form-control" id="validationCustom03"
-                                placeholder="bio">
-                {{user.profile.bio}} </textarea>
-                        </div>
+                            <label>Bio</label>
+                            <!-- <img *ngIf="reject != 'remove' " src="https://img.icons8.com/fluency/48/null/delete-sign.png"  style="margin-left: 380px;" (click)="cancel('remove')" />
+                            <img *ngIf="reject == 'remove' " src="https://img.icons8.com/color/48/null/approval--v1.png"  style="margin-left: 380px;" (click)="cancel('approved')" /> -->
+                            <input *ngIf="user.profile" type="text" class="form-control" name="bio"  [(ngModel)]="user.profile.bio"
+                                placeholder="bio" readonly>
+                                <label *ngIf="reject == 'remove' "><b>Bio reject discription</b></label>
+                                <textarea *ngIf="reject == 'remove' " type="text" class="form-control" name="bio_discription" [(ngModel)]="bioDiscription"></textarea>
+                                <div style="display: flex; margin-left: 35%;margin-top: 10px">
+                                    <div  class="btn btn-danger" data-toggle="modal" (click)="cancel('remove')">Reject</div>            
+                                     <div class="btn btn-success" (click)="cancel('approved')">Approved</div>
+                                 </div>
+                            </div>
                     </div>
                     <div class="box_01">
                         <label for="validationCustom03">Photo</label>
                         <p> (tick = approved, cross = rejected)</p>
-                        <div class="d-flex col-md-12 mb-3" width="100%">
-                            <div *ngFor="let image of allphoto" (click)="myClickFunction(image)"
-                                class="img_in_btn mr-3 p-0">
-                                <img src="{{image.url}}" alt="" style="height: 100px; width: 100px;">
-                                <span *ngFor="let id of imageIds">
-                                    <span *ngIf="image.id != id" class="check_btn"><svg
-                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                            class="bi bi-check-lg" viewBox="0 0 16 16">
-                                            <path
-                                                d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
-                                        </svg></span>
-                                    <span *ngIf="image.id == id" class="close_btn"> <svg
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                            <path
-                                                d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z" />
-                                        </svg></span>
-                                </span>
-                                <!-- <span #condition1 *ngIf="imageIds.length == 0" class="check_btn"><svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span> -->
+                      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner" *ngFor="let image of allphoto; let i = index">
+                                 <div  [ngClass]="[i === activeImage ? 'carousel-item active' : 'carousel-item']" >
+                                    <img class="d-block w-100" src="{{image.url}}" style="height: 300px; width: 100px;">
+                                    <div style="display: flex; margin-left: 35%;margin-top: 10px" *ngIf="image.status === 'UNDER_REVIEW' && !currentStatus ">
+                                        <div  class="btn btn-danger" data-toggle="modal" data-target="#rejectmodal" (click)="picRejectId(image.id)" >Reject</div>            
+                                         <div class="btn btn-success" (click)="picApproved(image.id)" >Approved</div>
+                                     </div>
+                                     <div *ngIf="!currentStatus">
+                                     <span *ngIf="image.status === 'ACTIVE'">Approved</span>
+                                     <span *ngIf="image.status === 'CANCELED'">Rejected</span>
+                                     </div>
+                                     <div *ngIf="currentStatus">
+                                        <span *ngIf="currentStatus === 'ACTIVE'">Approved</span>
+                                        <span *ngIf="currentStatus === 'CANCELED'">Rejected</span>
+                                        </div>
+                                  </div> 
+                                                              
                             </div>
+                            <span class="carousel-control-prev" *ngIf="activeImage !== 0"  (click)="previous(activeImage)" role="button" data-slide="prev" >
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </span>
+                            <span (click)="next(activeImage)" *ngIf="activeImage < allphoto.length-1" class="carousel-control-next" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </span>
                         </div>
+
                     </div>
 
                     <div class="box_01">
@@ -501,3 +580,33 @@
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+<!-- REJECT DESCIRIPTION MODAL -->
+
+  <div class="modal fade" id="rejectmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">Reasion For Reject</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        
+            <textarea type="text" class="form-control" id="RejecteDiscription" ></textarea>
+        
+         <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
+          <button (click)="handleRejectedButton($event,pictureRejectId)" class="btn btn-danger"  >Reject Picture</button>
+          </div>
+       </div>
+      </div>
+    </div>
+  </div>

@@ -59,9 +59,9 @@
                 <option value="Tasmania">Tasmania</option>
             </select>
             <!-- Relationship Status-->
-            <select (change)="filter('profile.relationship',$event)" class="form-control togl_drop" id="exampleFormControlSelect1">
+            <select (change)="filterforRelationship($event)" class="form-control togl_drop" id="exampleFormControlSelect1">
                 <option value=''>Relationship</option>
-                <option value="null">Single</option>
+                <option value="false">Single</option>
                 <option value="true">In a relation</option>
             </select>
             <!-- for_sort -->
@@ -77,6 +77,7 @@
     </div>
 </div>
 <div style="margin-right:32px;padding-top:104px;">
+    <h3>Total : <b>{{ countOfRows }}</b></h3>
     <table class="table" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" [fromRoot]="true"
         (scrolled)="onScroll()">
         <thead class="table-info">
@@ -98,7 +99,7 @@
         <tbody>
             <tr *ngFor="let user of users; let i = index" style="border:1px solid #f7f7f7;">
                 <td *ngIf="user.profile">{{i + 1}}</td>
-                <td *ngIf="user.profile" class="user_box">{{user.profile.first_name}}</td>
+                <td *ngIf="user.profile" class="user_box"><a class="curser_pointer" (click)="openLink(user.id)">{{user.profile.first_name}}</a></td>
                 <td *ngIf="user.profile">{{user.profile.gender}}</td>
                 <td *ngIf="user.profile">{{user.profile.preference[0]?.gender_preference}}</td>
                 <td *ngIf="user.profile" class="dob_box">{{user.profile.date_of_birth | date: 'dd-MM-yyyy' }}</td>
@@ -131,10 +132,10 @@
                         </div>
                         <div class="popover_div" *ngIf="id == user.id && show">
                             <ul>
-                                <li>Message</li>
-                                <li><a (click)="openLink(id)" data-dismiss="modal">Edit/ViewProfile</a></li>
-                                <li>Suspend</li>
-                                <li>Delete</li>
+                                <li class="curser_pointer">Message</li>
+                                <li class="curser_pointer"><a (click)="openLink(id)" data-dismiss="modal">Edit/ViewProfile</a></li>
+                                <li class="curser_pointer">Suspend</li>
+                                <li class="curser_pointer">Delete</li>
                             </ul>
                         </div>
                     </div>

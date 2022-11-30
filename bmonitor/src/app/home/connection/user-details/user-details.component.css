@@ -233,3 +233,11 @@ ul.User_statics_sec li:nth-child(even) .card{
     max-width: 100%;
     height: inherit;
 }
+
+.body div.simple-notification-wrapper{
+    z-index:10000;
+}
+
+.curser_pointer{
+    cursor: pointer;
+}

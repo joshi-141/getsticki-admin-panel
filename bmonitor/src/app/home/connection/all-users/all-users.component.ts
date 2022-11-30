@@ -17,9 +17,10 @@ export class AllUsersComponent implements OnInit {
   endofPage: boolean = false;
   users: any = [];
   decs: any = [];
+  countOfRows : any = [];
   queryParams: any = {
     skip: 0, take: 10, orderBy: '', orderMethod: '', whereCond: '', whereCondOr: '',
-    profile: null
+    profile: null, whereForRelation: ''
   };
   public whereQuery: any;
   public display: number = 1;
@@ -51,9 +52,14 @@ export class AllUsersComponent implements OnInit {
     this.router.navigate(['./connection/user-details', id]);
   }
   async mainfunction(queryParams: any) {
+
     await this.userService.loadUser((data) => {
       this.users = Object.values(data.data);
     }, queryParams);
+
+    await this.userService.totalRows((data) => {
+      this.countOfRows = data.data[0].count;
+     },queryParams);
   }
   async sort(data: any) {
     const valueObj = JSON.parse(data.target.value);
@@ -69,8 +75,7 @@ export class AllUsersComponent implements OnInit {
   }
 
   async filter(column: string, data: any) {
-    console.log("data",data.target.value);
-    
+
     const splitParts = column.split(".");
     let where = {}
     if (data.target.value != '') {
@@ -109,7 +114,7 @@ export class AllUsersComponent implements OnInit {
     //   delete this.searchValue;
     // }
     if (value != "") {
-      this.queryParams.whereCondOr = [{ phone_number: { equals: value,mode: 'insensitive'  } },{ email: { equals: value,mode: 'insensitive'  } }, { id: { equals: value, mode: 'insensitive' } },{profile:{first_name:{contains:value,mode: 'insensitive' }}}]
+      this.queryParams.whereCondOr = [{ phone_number: { equals: value, mode: 'insensitive' } }, { email: { equals: value, mode: 'insensitive' } }, { id: { equals: value, mode: 'insensitive' } }, { profile: { first_name: { contains: value, mode: 'insensitive' } } }]
     } else {
       delete this.queryParams.whereCondOr;
     }
@@ -133,18 +138,25 @@ export class AllUsersComponent implements OnInit {
       headers: ['ID', 'USER NAME', 'GENDER', 'PREFERENCE', 'DOB', 'LOCATION', 'MOBILE', 'JOINED DATE', 'PROFILE STATUS', 'ACCOUNT STATUS']
     };
     let userList = new Array();
-    if(this.users != ''){
-    this.users.forEach(function (arrayItem: any) {
+    if (this.users != '') {
+      this.users.forEach(function (arrayItem: any) {
 
-      let userObj = {
-        id: arrayItem.id, name: arrayItem.profile.first_name, gender: arrayItem.profile.gender,
-        performance: arrayItem.profile.preference[0]?.gender_preference, date_of_birth: arrayItem.profile.date_of_birth,
-        location: arrayItem.profile.country, phone_number: arrayItem.phone_number, created_at: arrayItem.created_at,
-        profile_status: arrayItem.profile.review_status, account_status: arrayItem.account_status
-      }
-      userList.push(userObj)
-    });
-  }
+        let userObj = {
+          id: arrayItem.id, name: arrayItem.profile.first_name, gender: arrayItem.profile.gender,
+          performance: arrayItem.profile.preference[0]?.gender_preference, date_of_birth: arrayItem.profile.date_of_birth,
+          location: arrayItem.profile.country, phone_number: arrayItem.phone_number, created_at: arrayItem.created_at,
+          profile_status: arrayItem.profile.review_status, account_status: arrayItem.account_status
+        }
+        userList.push(userObj)
+      });
+    }
     new Angular2Csv(userList, this.formula, options);
+  }
+
+  async filterforRelationship(data: any) {
+    this.queryParams.whereForRelation = data.target.value != '' ? data.target.value == 'true' ? `where:{profile:{relationship:true}}` : `where:{profile:{OR:[{relationship:false},{relationship:null}]}}` : '';
+    await this.userService.getRelationShipFilter((data) => {
+      this.users = Object.values(data.data);
+    }, this.queryParams);
   }
 }
